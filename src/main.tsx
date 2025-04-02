@@ -99,7 +99,7 @@ function MonogramTshirtApp() {
             .textAlignment(TextAlignment.center())
         )
           .textColor(textColor)
-          .textFit(TextFit.size(150, 220))
+          .textFit(TextFit.size(180, 220))
       ).position(new Position().gravity(compass('north')).offsetY(200))
     );
     return img;

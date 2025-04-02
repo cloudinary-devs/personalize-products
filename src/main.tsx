@@ -73,6 +73,22 @@ function MonogramTshirtApp() {
   const tshirtImage = useMemo(() => {
     if (errors.name || errors.number) return null;
 
+    const hasLongChunk = name
+      .split(/\s+/)             // Split on one or more spaces
+      .some(chunk => chunk.length > 8); // Check if any word is too long
+    let font_size = 40;
+    if (hasLongChunk) {
+      const longestChunk = name
+        .split(/\s+/)
+        .reduce((longest, current) =>
+          current.length > longest.length ? current : longest,
+        '');
+      
+      const excess = longestChunk.length - 8;
+      const reduction = Math.floor(excess / 2) * 7;
+      font_size = Math.max(20, 40 - reduction);
+    }
+
     let img = cld
       .image(BASE_TSHIRT_IMAGE)
       .resize(fill().width(500).height(500));
@@ -94,7 +110,7 @@ function MonogramTshirtApp() {
       source(
         text(
           name,
-          new TextStyle('Arial', 40)
+          new TextStyle('Arial', font_size)
             .fontWeight('bold')
             .textAlignment(TextAlignment.center())
         )

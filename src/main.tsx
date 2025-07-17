@@ -202,9 +202,9 @@ function MonogramTshirtApp() {
           <p className="error text-red-500 text-sm">{errors.number}</p>
         )}
         {/* Horizontal row for Color, Font, Shadow */}
-        <div className="flex flex-row gap-x-4 gap-y-0 items-end w-full">
-          <div className="flex flex-col gap-y-1 flex-1">
-            <label className="font-semibold text-black text-lg">Color:</label>
+        <div className="flex flex-row flex-nowrap gap-4 w-full mt-2">
+          <div className="flex flex-col flex-1 min-w-0">
+            <label className="font-semibold text-black text-lg mb-1">Color:</label>
             <select
               value={color}
               onChange={(e) => setColor(e.target.value)}
@@ -217,8 +217,8 @@ function MonogramTshirtApp() {
               ))}
             </select>
           </div>
-          <div className="flex flex-col gap-y-1 flex-1">
-            <label className="font-semibold text-black text-lg">Font:</label>
+          <div className="flex flex-col flex-1 min-w-0">
+            <label className="font-semibold text-black text-lg mb-1">Font:</label>
             <select
               value={font}
               onChange={(e) => setFont(e.target.value)}
@@ -231,8 +231,8 @@ function MonogramTshirtApp() {
               ))}
             </select>
           </div>
-          <div className="flex flex-col gap-y-1 flex-1">
-            <label className="font-semibold text-black text-lg">Shadow:</label>
+          <div className="flex flex-col flex-1 min-w-0">
+            <label className="font-semibold text-black text-lg mb-1">Shadow:</label>
             <select
               value={shadow}
               onChange={(e) => setShadow(e.target.value)}

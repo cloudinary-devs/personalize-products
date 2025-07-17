@@ -33,6 +33,11 @@ const COLORS = [
   'beige',
 ];
 
+const FONTS = [
+  { label: 'Arial (Default)', value: 'Arial' },
+  { label: 'Alex Brush', value: 'AlexBrush-Regular.ttf' },
+];
+
 const cld = new Cloudinary({
   cloud: { cloudName: CLOUDINARY_CLOUD_NAME },
 });
@@ -41,6 +46,7 @@ function MonogramTshirtApp() {
   const [name, setName] = useState('John');
   const [number, setNumber] = useState('10');
   const [color, setColor] = useState('blue');
+  const [font, setFont] = useState('Arial');
   const [errors, setErrors] = useState({ name: '', number: '' });
 
   const textColor = ['black', 'maroon', 'blue', 'purple', 'green'].includes(
@@ -110,7 +116,7 @@ function MonogramTshirtApp() {
       source(
         text(
           name,
-          new TextStyle('Arial', font_size)
+          new TextStyle(font, font_size)
             .fontWeight('bold')
             .textAlignment(TextAlignment.center())
         )
@@ -119,7 +125,7 @@ function MonogramTshirtApp() {
       ).position(new Position().gravity(compass('north')).offsetY(200))
     );
     return img;
-  }, [name, number, color, errors]);
+  }, [name, number, color, font, errors]);
 
   return (
     <div className="main flex flex-col items-center p-6">
@@ -170,6 +176,20 @@ function MonogramTshirtApp() {
             {COLORS.map((col) => (
               <option key={col} value={col}>
                 {col.charAt(0).toUpperCase() + col.slice(1)}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="flex items-center gap-4">
+          <label className="font-semibold text-black text-lg">Font:</label>
+          <select
+            value={font}
+            onChange={(e) => setFont(e.target.value)}
+            className="p-3 border border-gray-400 rounded-lg w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
+          >
+            {FONTS.map((f) => (
+              <option key={f.value} value={f.value}>
+                {f.label}
               </option>
             ))}
           </select>

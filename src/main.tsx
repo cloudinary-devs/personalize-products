@@ -202,13 +202,13 @@ function MonogramTshirtApp() {
           <p className="error text-red-500 text-sm">{errors.number}</p>
         )}
         {/* Horizontal row for Color, Font, Shadow */}
-        <div className="flex flex-row flex-nowrap gap-4 w-full mt-2">
-          <div className="flex flex-col flex-1 min-w-0">
-            <label className="font-semibold text-black text-lg mb-1">Color:</label>
+        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', width: '100%', gap: '1rem', marginTop: '0.5rem' }}>
+          <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+            <label style={{ fontWeight: 600, color: 'black', fontSize: '1.125rem', marginBottom: '0.25rem' }}>Color:</label>
             <select
               value={color}
               onChange={(e) => setColor(e.target.value)}
-              className="p-3 border border-gray-400 rounded-lg w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
+              style={{ padding: '0.75rem', border: '1px solid #ccc', borderRadius: '0.5rem', width: '100%' }}
             >
               {COLORS.map((col) => (
                 <option key={col} value={col}>
@@ -217,12 +217,12 @@ function MonogramTshirtApp() {
               ))}
             </select>
           </div>
-          <div className="flex flex-col flex-1 min-w-0">
-            <label className="font-semibold text-black text-lg mb-1">Font:</label>
+          <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+            <label style={{ fontWeight: 600, color: 'black', fontSize: '1.125rem', marginBottom: '0.25rem' }}>Font:</label>
             <select
               value={font}
               onChange={(e) => setFont(e.target.value)}
-              className="p-3 border border-gray-400 rounded-lg w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
+              style={{ padding: '0.75rem', border: '1px solid #ccc', borderRadius: '0.5rem', width: '100%' }}
             >
               {FONTS.map((f) => (
                 <option key={f.value} value={f.value}>
@@ -231,12 +231,12 @@ function MonogramTshirtApp() {
               ))}
             </select>
           </div>
-          <div className="flex flex-col flex-1 min-w-0">
-            <label className="font-semibold text-black text-lg mb-1">Shadow:</label>
+          <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+            <label style={{ fontWeight: 600, color: 'black', fontSize: '1.125rem', marginBottom: '0.25rem' }}>Shadow:</label>
             <select
               value={shadow}
               onChange={(e) => setShadow(e.target.value)}
-              className="p-3 border border-gray-400 rounded-lg w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
+              style={{ padding: '0.75rem', border: '1px solid #ccc', borderRadius: '0.5rem', width: '100%' }}
             >
               {SHADOW_OPTIONS.map((s) => (
                 <option key={s.value} value={s.value}>

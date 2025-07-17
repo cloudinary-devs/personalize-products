@@ -38,6 +38,11 @@ const FONTS = [
   { label: 'Alex Brush', value: 'AlexBrush-Regular.ttf' },
 ];
 
+const SHADOW_OPTIONS = [
+  { label: 'No Shadow (default)', value: 'none' },
+  { label: 'Black Shadow', value: 'black' },
+];
+
 const cld = new Cloudinary({
   cloud: { cloudName: CLOUDINARY_CLOUD_NAME },
 });
@@ -47,6 +52,7 @@ function MonogramTshirtApp() {
   const [number, setNumber] = useState('10');
   const [color, setColor] = useState('blue');
   const [font, setFont] = useState('Arial');
+  const [shadow, setShadow] = useState('none');
   const [errors, setErrors] = useState({ name: '', number: '' });
 
   const textColor = ['black', 'maroon', 'blue', 'purple', 'green'].includes(
@@ -112,6 +118,35 @@ function MonogramTshirtApp() {
         ).textColor(textColor)
       ).position(new Position().gravity(compass('north')).offsetY(140))
     );
+    // Add shadow layers if selected
+    if (shadow === 'black') {
+      // First shadow layer (closer)
+      img = img.overlay(
+        source(
+          text(
+            name,
+            new TextStyle(font, font_size)
+              .fontWeight('bold')
+              .textAlignment(TextAlignment.center())
+          )
+            .textColor('black')
+            .textFit(TextFit.size(180, 220))
+        ).position(new Position().gravity(compass('north')).offsetX(4).offsetY(204)) // 4px right, 4px down
+      );
+      // Second shadow layer (further for bolder effect)
+      img = img.overlay(
+        source(
+          text(
+            name,
+            new TextStyle(font, font_size)
+              .fontWeight('bold')
+              .textAlignment(TextAlignment.center())
+          )
+            .textColor('black')
+            .textFit(TextFit.size(180, 220))
+        ).position(new Position().gravity(compass('north')).offsetX(8).offsetY(208)) // 8px right, 8px down
+      );
+    }
     img = img.overlay(
       source(
         text(
@@ -125,7 +160,7 @@ function MonogramTshirtApp() {
       ).position(new Position().gravity(compass('north')).offsetY(200))
     );
     return img;
-  }, [name, number, color, font, errors]);
+  }, [name, number, color, font, shadow, errors]);
 
   return (
     <div className="main flex flex-col items-center p-6">
@@ -166,33 +201,50 @@ function MonogramTshirtApp() {
         {errors.number && (
           <p className="error text-red-500 text-sm">{errors.number}</p>
         )}
-        <div className="flex items-center gap-4">
-          <label className="font-semibold text-black text-lg">Color:</label>
-          <select
-            value={color}
-            onChange={(e) => setColor(e.target.value)}
-            className="p-3 border border-gray-400 rounded-lg w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-          >
-            {COLORS.map((col) => (
-              <option key={col} value={col}>
-                {col.charAt(0).toUpperCase() + col.slice(1)}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex items-center gap-4">
-          <label className="font-semibold text-black text-lg">Font:</label>
-          <select
-            value={font}
-            onChange={(e) => setFont(e.target.value)}
-            className="p-3 border border-gray-400 rounded-lg w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-          >
-            {FONTS.map((f) => (
-              <option key={f.value} value={f.value}>
-                {f.label}
-              </option>
-            ))}
-          </select>
+        {/* Horizontal row for Color, Font, Shadow */}
+        <div className="flex flex-row gap-4 w-full">
+          <div className="flex flex-col flex-1">
+            <label className="font-semibold text-black text-lg">Color:</label>
+            <select
+              value={color}
+              onChange={(e) => setColor(e.target.value)}
+              className="p-3 border border-gray-400 rounded-lg w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
+            >
+              {COLORS.map((col) => (
+                <option key={col} value={col}>
+                  {col.charAt(0).toUpperCase() + col.slice(1)}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex flex-col flex-1">
+            <label className="font-semibold text-black text-lg">Font:</label>
+            <select
+              value={font}
+              onChange={(e) => setFont(e.target.value)}
+              className="p-3 border border-gray-400 rounded-lg w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
+            >
+              {FONTS.map((f) => (
+                <option key={f.value} value={f.value}>
+                  {f.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex flex-col flex-1">
+            <label className="font-semibold text-black text-lg">Shadow:</label>
+            <select
+              value={shadow}
+              onChange={(e) => setShadow(e.target.value)}
+              className="p-3 border border-gray-400 rounded-lg w-full focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
+            >
+              {SHADOW_OPTIONS.map((s) => (
+                <option key={s.value} value={s.value}>
+                  {s.label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
     </div>

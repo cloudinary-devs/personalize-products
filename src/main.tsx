@@ -202,8 +202,8 @@ function MonogramTshirtApp() {
           <p className="error text-red-500 text-sm">{errors.number}</p>
         )}
         {/* Horizontal row for Color, Font, Shadow */}
-        <div className="flex flex-row gap-4 w-full">
-          <div className="flex flex-col flex-1">
+        <div className="flex flex-row gap-x-4 gap-y-0 items-end w-full">
+          <div className="flex flex-col gap-y-1 flex-1">
             <label className="font-semibold text-black text-lg">Color:</label>
             <select
               value={color}
@@ -217,7 +217,7 @@ function MonogramTshirtApp() {
               ))}
             </select>
           </div>
-          <div className="flex flex-col flex-1">
+          <div className="flex flex-col gap-y-1 flex-1">
             <label className="font-semibold text-black text-lg">Font:</label>
             <select
               value={font}
@@ -231,7 +231,7 @@ function MonogramTshirtApp() {
               ))}
             </select>
           </div>
-          <div className="flex flex-col flex-1">
+          <div className="flex flex-col gap-y-1 flex-1">
             <label className="font-semibold text-black text-lg">Shadow:</label>
             <select
               value={shadow}

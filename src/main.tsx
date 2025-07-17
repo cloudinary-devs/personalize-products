@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { AdvancedImage } from '@cloudinary/react';
@@ -41,6 +41,15 @@ const FONTS = [
 const SHADOW_OPTIONS = [
   { label: 'No Shadow (default)', value: 'none' },
   { label: 'Black Shadow', value: 'black' },
+];
+
+const SHADOW_DISABLED_COLORS = [
+  'lightblue',
+  'black',
+  'white',
+  'orange',
+  'red',
+  'beige',
 ];
 
 const cld = new Cloudinary({
@@ -162,6 +171,13 @@ function MonogramTshirtApp() {
     return img;
   }, [name, number, color, font, shadow, errors]);
 
+  // Reset shadow if color disables shadow
+  useEffect(() => {
+    if (SHADOW_DISABLED_COLORS.includes(color) && shadow !== 'none') {
+      setShadow('none');
+    }
+  }, [color, shadow]);
+
   return (
     <div className="main flex flex-col items-center p-6">
       <h1 className="text-2xl font-bold mb-4">Customize Your T-Shirt</h1>
@@ -237,6 +253,7 @@ function MonogramTshirtApp() {
               value={shadow}
               onChange={(e) => setShadow(e.target.value)}
               style={{ padding: '0.75rem', border: '1px solid #ccc', borderRadius: '0.5rem', width: '100%' }}
+              disabled={SHADOW_DISABLED_COLORS.includes(color)}
             >
               {SHADOW_OPTIONS.map((s) => (
                 <option key={s.value} value={s.value}>
